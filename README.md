@@ -25,11 +25,6 @@ description: 从开发环境到第一个工程
 
 [mGBA](http://mgba.io) 或者烧录卡
 
-### 调试
-
-* [mGBA + printf](https://github.com/mgba-emu/mgba/tree/master/opt/libgba)
-* [mGBA + gdb](https://simianzombie.com/posts/2018/11/12/debugging-with-mgba)
-
 ## 求助
 
 [社区](https://discord.io/gbadev)
