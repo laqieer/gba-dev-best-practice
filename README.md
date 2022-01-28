@@ -4,6 +4,8 @@ description: 从开发环境到工程模板
 
 # 第1章 Hello World
 
+{% embed url="https://www.bilibili.com/video/BV1UL4y1x7qc" %}
+
 ## 搭建GBA开发环境
 
 安装 [devkitPro](https://devkitpro.org/wiki/Getting\_Started) 或者 [gba-toolchain](https://github.com/felixjones/gba-toolchain)
