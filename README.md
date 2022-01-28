@@ -1,5 +1,5 @@
 ---
-description: 从开发环境到第一个工程
+description: 从开发环境到工程模板
 ---
 
 # 第1章 Hello World
