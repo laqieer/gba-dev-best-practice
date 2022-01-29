@@ -6,6 +6,7 @@
 #include <gba_input.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "mgba.h"
 
 int search(const int* nums, int numsSize, int target);
 
@@ -26,6 +27,7 @@ int main(void) {
 	irqEnable(IRQ_VBLANK);
 
 	consoleDemoInit();
+	mgba_open();
 
 	iprintf("Binary Search:\n");
 	iprintf("nums = [-1,0,3,5,9,12]\n");
@@ -47,13 +49,14 @@ int search(const int* nums, int numsSize, int target) {
     int l, r, mid;
     for (l = 0, r = numsSize - 1; l <= r; ) {
         mid = l + ((r - l) >> 1);
+	mgba_printf(MGBA_LOG_INFO, "l=%d r=%d mid=%d\n", l, r, mid);
         if (nums[mid] == target) {
             return mid;
         }
         if (nums[mid] < target) {
-            l = mid;
+            l = mid + 1;
         } else {
-            r = mid;
+            r = mid - 1;
         }
     }
     return -1;
