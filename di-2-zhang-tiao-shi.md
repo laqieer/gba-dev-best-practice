@@ -15,3 +15,5 @@ description: 开发5分钟，调试2小时
 [方法2：debugger](https://simianzombie.com/posts/2018/11/12/debugging-with-mgba)
 
 其他模拟器类似
+
+[本章源码](https://github.com/laqieer/gba-dev-best-practice/tree/main/source/binary-search)
