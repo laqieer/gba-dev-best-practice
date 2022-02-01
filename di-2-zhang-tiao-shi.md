@@ -4,6 +4,8 @@ description: 开发5分钟，调试2小时
 
 # 第2章 调试
 
+{% embed url="https://www.bilibili.com/video/BV1Bb4y1E7Kb" %}
+
 [例题：二分查找](https://leetcode-cn.com/problems/binary-search/)
 
 以mGBA为例：
