@@ -4,6 +4,8 @@ description: 处理用户输入
 
 # 第4章 按键
 
+{% embed url="https://www.bilibili.com/video/BV1x5411Z7wW" %}
+
 实体按键:
 
 ![GBA](https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Nintendo-Game-Boy-Advance-Milky-Blue-FL.png/500px-Nintendo-Game-Boy-Advance-Milky-Blue-FL.png)
