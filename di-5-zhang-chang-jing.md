@@ -4,6 +4,8 @@ description: 游戏舞台
 
 # 第5章 场景
 
+{% embed url="https://www.bilibili.com/video/BV1eS4y1k7D1" %}
+
 示例：
 
 [Retro Futuristic 80s Background Vectors by Vecteezy](https://www.vecteezy.com/vector-art/2058317-retro-futuristic-80s-background)
