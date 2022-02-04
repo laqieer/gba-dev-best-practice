@@ -4,12 +4,15 @@
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_double_size_mode.h"
 #include "bn_sprite_items_fantasy_knight.h"
+#include "bn_sprite_tiles_items_fantasy_knight_running.h"
+#include "bn_sprite_animate_actions.h"
 #include "bn_regular_bg_ptr.h"
 #include "bn_regular_bg_items_futurism_background.h"
 #include "bn_affine_bg_ptr.h"
 #include "bn_affine_bg_items_mystical_symbol.h"
 
 bn::sprite_ptr *sprite;
+bn::sprite_animate_action<10> *sprite_action;
 bn::regular_bg_ptr *regular_bg;
 bn::affine_bg_ptr *affine_bg;
 
@@ -20,6 +23,7 @@ void reset_sprite();
 void reset_regular_bg();
 void reset_affine_bg();
 void handle_user_input();
+void update_actions();
 
 int main()
 {
@@ -31,6 +35,7 @@ int main()
     while(true)
     {
         handle_user_input();
+        update_actions();
         bn::core::update();
     }
 }
@@ -40,6 +45,7 @@ void init_sprite()
     sprite = new bn::sprite_ptr(bn::sprite_items::fantasy_knight.create_sprite(0, 0));
     sprite->set_double_size_mode(bn::sprite_double_size_mode::ENABLED);
     sprite->set_bg_priority(0);
+    sprite_action = new bn::sprite_animate_action<10>(bn::create_sprite_animate_action_forever(*sprite, 3, bn::sprite_tiles_items::fantasy_knight_running, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
 }
 
 void init_regular_bg()
@@ -136,6 +142,8 @@ void handle_user_input()
     {
         sprite->set_x(sprite->x() - 1);
         affine_bg->set_x(sprite->x());
+        sprite->set_horizontal_flip(true);
+        affine_bg->set_horizontal_flip(true);
     }
 
     // 十字键向右: 右移
@@ -143,13 +151,8 @@ void handle_user_input()
     {
         sprite->set_x(sprite->x() + 1);
         affine_bg->set_x(sprite->x());
-    }
-
-    // R键: 转身
-    if(bn::keypad::r_pressed())
-    {
-        sprite->set_horizontal_flip(!sprite->horizontal_flip());
-        affine_bg->set_horizontal_flip(sprite->horizontal_flip());
+        sprite->set_horizontal_flip(false);
+        affine_bg->set_horizontal_flip(false);
     }
 
     // A键: 魔法阵放大
@@ -169,4 +172,9 @@ void handle_user_input()
     {
         affine_bg->set_rotation_angle((affine_bg->rotation_angle().integer() + 5) % 360);
     }
+}
+
+void update_actions()
+{
+    sprite_action->update();
 }
