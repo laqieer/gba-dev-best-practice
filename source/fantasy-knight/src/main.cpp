@@ -58,9 +58,6 @@ void reset_sprite()
 {
     sprite->set_position(0, 0);
     sprite->set_horizontal_flip(false);
-    sprite->set_vertical_flip(false);
-    sprite->set_scale(1);
-    sprite->set_rotation_angle(0);
 }
 
 void reset_regular_bg()
@@ -72,7 +69,6 @@ void reset_affine_bg()
 {
     affine_bg->set_position(0, 0);
     affine_bg->set_horizontal_flip(false);
-    affine_bg->set_vertical_flip(false);
     affine_bg->set_scale(1);
     affine_bg->set_rotation_angle(0);
 }
@@ -87,19 +83,52 @@ void handle_user_input()
         reset_affine_bg();
     }
 
-    // 十字键向上: 场景
-    if(bn::keypad::up_held() && regular_bg->y() < 48)
+    // 十字键向上
+    if(bn::keypad::up_held())
     {
-        sprite->set_y(sprite->y() + 1);
-        affine_bg->set_y(sprite->y());
-        regular_bg->set_y(regular_bg->y() + 1);
+        // 按住L键: 场景下移
+        if(bn::keypad::l_held())
+        {
+            if(regular_bg->y() < 48)
+            {
+                regular_bg->set_y(regular_bg->y() + 1);
+                sprite->set_y(sprite->y() + 1);
+                affine_bg->set_y(sprite->y());
+            }
+        }
+        // 否则: 人物上移
+        else
+        {
+            if(sprite->y() > regular_bg->y())
+            {
+                sprite->set_y(sprite->y() - 1);
+                affine_bg->set_y(sprite->y());
+            }
+        }
     }
 
-    // 十字键向下: 下移
-    if(bn::keypad::down_held() && sprite->y() < 80)
+    // 十字键向下
+    if(bn::keypad::down_held())
     {
-        sprite->set_y(sprite->y() + 1);
-        affine_bg->set_y(sprite->y());
+        // 按住L键: 场景上移
+        if(bn::keypad::l_held())
+        {
+            if(regular_bg->y() > -48)
+            {
+                regular_bg->set_y(regular_bg->y() - 1);
+                sprite->set_y(sprite->y() - 1);
+                affine_bg->set_y(sprite->y());
+            }
+        }
+        // 否则: 人物下移
+        else
+        {
+            if(sprite->y() - regular_bg->y() < 96)
+            {
+                sprite->set_y(sprite->y() + 1);
+                affine_bg->set_y(sprite->y());
+            }
+        }
     }
 
     // 十字键向左: 左移
@@ -116,34 +145,26 @@ void handle_user_input()
         affine_bg->set_x(sprite->x());
     }
 
-    // L键: 水平翻折
-    if(bn::keypad::l_pressed())
+    // R键: 转身
+    if(bn::keypad::r_pressed())
     {
         sprite->set_horizontal_flip(!sprite->horizontal_flip());
         affine_bg->set_horizontal_flip(sprite->horizontal_flip());
     }
 
-    // R键: 垂直翻折
-    if(bn::keypad::r_pressed())
+    // A键: 魔法阵放大
+    if(bn::keypad::a_held() && affine_bg->horizontal_scale() < 2)
     {
-        affine_bg->set_vertical_flip(!affine_bg->vertical_flip());
+        affine_bg->set_scale(affine_bg->horizontal_scale() + 0.1);
     }
 
-    // A键: 放大
-    if(bn::keypad::a_held() && sprite->horizontal_scale() < 2)
+    // B键: 魔法阵缩小
+    if(bn::keypad::b_held() && affine_bg->horizontal_scale() > 0.1)
     {
-        sprite->set_scale(sprite->horizontal_scale() + 0.1);
-        affine_bg->set_scale(sprite->horizontal_scale());
+        affine_bg->set_scale(affine_bg->horizontal_scale() - 0.1);
     }
 
-    // B键: 缩小
-    if(bn::keypad::b_held() && sprite->horizontal_scale() > 0.1)
-    {
-        sprite->set_scale(sprite->horizontal_scale() - 0.1);
-        affine_bg->set_scale(sprite->horizontal_scale());
-    }
-
-    // Select键: 旋转
+    // Select键: 魔法阵旋转
     if(bn::keypad::select_held())
     {
         affine_bg->set_rotation_angle((affine_bg->rotation_angle().integer() + 5) % 360);
