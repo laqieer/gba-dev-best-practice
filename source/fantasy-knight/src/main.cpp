@@ -10,11 +10,13 @@
 #include "bn_regular_bg_items_futurism_background.h"
 #include "bn_affine_bg_ptr.h"
 #include "bn_affine_bg_items_mystical_symbol.h"
+#include "bn_affine_bg_actions.h"
 
 bn::sprite_ptr *sprite;
 bn::sprite_animate_action<10> *sprite_action;
 bn::regular_bg_ptr *regular_bg;
 bn::affine_bg_ptr *affine_bg;
+bn::affine_bg_rotate_by_action *affine_bg_action;
 
 void init_sprite();
 void init_regular_bg();
@@ -58,6 +60,7 @@ void init_affine_bg()
     affine_bg = new bn::affine_bg_ptr(bn::affine_bg_items::mystical_symbol.create_bg(0, 0));
     affine_bg->set_priority(2);
     affine_bg->set_wrapping_enabled(false);
+    affine_bg_action = new bn::affine_bg_rotate_by_action(*affine_bg, 5);
 }
 
 void reset_sprite()
@@ -166,15 +169,10 @@ void handle_user_input()
     {
         affine_bg->set_scale(affine_bg->horizontal_scale() - 0.1);
     }
-
-    // Select键: 魔法阵旋转
-    if(bn::keypad::select_held())
-    {
-        affine_bg->set_rotation_angle((affine_bg->rotation_angle().integer() + 5) % 360);
-    }
 }
 
 void update_actions()
 {
     sprite_action->update();
+    affine_bg_action->update();
 }
