@@ -11,6 +11,8 @@
 #include "bn_affine_bg_ptr.h"
 #include "bn_affine_bg_items_mystical_symbol.h"
 #include "bn_affine_bg_actions.h"
+#include "bn_music_items.h"
+#include "bn_sound_items.h"
 
 bn::sprite_ptr *sprite;
 bn::sprite_animate_action<10> *sprite_action;
@@ -33,6 +35,8 @@ int main()
     init_sprite();
     init_regular_bg();
     init_affine_bg();
+    bn::music_items::age_of_time.play(0.25);
+    bn::sound_items::evil_monster_kevangc.play();
 
     while(true)
     {
