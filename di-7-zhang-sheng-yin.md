@@ -4,6 +4,8 @@ description: BGM、音效
 
 # 第7章 声音
 
+{% embed url="https://www.bilibili.com/video/BV1xu411d7ja" %}
+
 [文档](https://gvaliente.github.io/butano/import.html#import\_audio)
 
 示例：
