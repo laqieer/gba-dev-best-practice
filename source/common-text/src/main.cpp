@@ -13,7 +13,7 @@ int main()
     bn::core::init();
 
     bn::sprite_text_generator *text_en_generator = new bn::sprite_text_generator(common::variable_8x16_sprite_font);
-    bn::vector<bn::sprite_ptr, MAX_SPRITES> text_sprites = text_en_generator->generate<MAX_SPRITES>(-120, -64, "This is an English text.");
+    bn::vector<bn::sprite_ptr, MAX_SPRITES> text_en_sprites = text_en_generator->generate<MAX_SPRITES>(-120, -64, "This is an English text.");
 
     bn::sprite_text_generator *text_cn_generator = new bn::sprite_text_generator(common::cn::variable_16x16_sprite_font);
     bn::vector<bn::sprite_ptr, MAX_SPRITES> text_cn_sprites = text_cn_generator->generate<MAX_SPRITES>(-120, -48, "这是一段中文文本。");
