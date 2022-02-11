@@ -9,3 +9,4 @@
 * [第5章 场景](di-5-zhang-chang-jing.md)
 * [第6章 动作](di-6-zhang-dong-zuo.md)
 * [第7章 声音](di-7-zhang-sheng-yin.md)
+* [第8章 文本](di-8-zhang-wen-ben.md)
