@@ -25,10 +25,10 @@ int main()
     bn::vector<bn::sprite_ptr, MAX_SPRITES> text_sc_sprites = text_sc_generator->generate<MAX_SPRITES>(-120, -48 + LEADING, "sc 简体中文");
 
     bn::sprite_text_generator *text_tc_generator = new bn::sprite_text_generator(common::tc::variable_16x16_sprite_font);
-    bn::vector<bn::sprite_ptr, MAX_SPRITES> text_tc_sprites = text_tc_generator->generate<MAX_SPRITES>(-120, -32 + LEADING * 2, "tc 繁体中文（台灣）");
+    bn::vector<bn::sprite_ptr, MAX_SPRITES> text_tc_sprites = text_tc_generator->generate<MAX_SPRITES>(-120, -32 + LEADING * 2, "tc 繁體中文（台灣）");
 
     bn::sprite_text_generator *text_hc_generator = new bn::sprite_text_generator(common::hc::variable_16x16_sprite_font);
-    bn::vector<bn::sprite_ptr, MAX_SPRITES> text_hc_sprites = text_hc_generator->generate<MAX_SPRITES>(-120, -16 + LEADING * 3, "hc 繁体中文（香港）");
+    bn::vector<bn::sprite_ptr, MAX_SPRITES> text_hc_sprites = text_hc_generator->generate<MAX_SPRITES>(-120, -16 + LEADING * 3, "hc 繁體中文（香港）");
 
     bn::sprite_text_generator *text_jp_generator = new bn::sprite_text_generator(common::jp::variable_16x16_sprite_font);
     bn::vector<bn::sprite_ptr, MAX_SPRITES> text_jp_sprites = text_jp_generator->generate<MAX_SPRITES>(-120, 0 + LEADING * 4, "jp 日本語 にほんご");
