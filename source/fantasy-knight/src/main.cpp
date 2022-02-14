@@ -13,16 +13,22 @@
 #include "bn_affine_bg_actions.h"
 #include "bn_music_items.h"
 #include "bn_sound_items.h"
+#include "bn_string_view.h"
+#include "bn_sprite_text_generator.h"
+#include "hanamin_sprite_font.h"
 
 bn::sprite_ptr *sprite;
 bn::sprite_animate_action<10> *sprite_action;
 bn::regular_bg_ptr *regular_bg;
 bn::affine_bg_ptr *affine_bg;
 bn::affine_bg_rotate_by_action *affine_bg_action;
+bn::sprite_text_generator *text_generator;
+bn::vector<bn::sprite_ptr, 10> *text_sprites;
 
 void init_sprite();
 void init_regular_bg();
 void init_affine_bg();
+void init_text();
 void reset_sprite();
 void reset_regular_bg();
 void reset_affine_bg();
@@ -35,6 +41,7 @@ int main()
     init_sprite();
     init_regular_bg();
     init_affine_bg();
+    init_text();
     bn::music_items::age_of_time.play(0.25);
     bn::sound_items::evil_monster_kevangc.play();
 
@@ -65,6 +72,13 @@ void init_affine_bg()
     affine_bg->set_priority(2);
     affine_bg->set_wrapping_enabled(false);
     affine_bg_action = new bn::affine_bg_rotate_by_action(*affine_bg, 5);
+}
+
+void init_text()
+{
+    text_generator = new bn::sprite_text_generator(hanamin_sprite_font);
+    text_sprites = new bn::vector<bn::sprite_ptr, 10>();
+    text_generator->generate(0, -70, "GBA开发最佳实践", *text_sprites);
 }
 
 void reset_sprite()
