@@ -1,13 +1,11 @@
 ---
-description: 支持中英日韩等各国语言
+description: 支持中英日韩、简体繁体、古代汉语
 ---
 
 # 第8章 文本
 
-![示例](.gitbook/assets/第8章示例.png)
+[butano的CJK扩展](https://github.com/laqieer/gba-free-fonts)
 
-[字体库](https://github.com/laqieer/gba-free-fonts)
-
-[本章源码](https://github.com/laqieer/gba-dev-best-practice/tree/main/source/common-text)
+[本章源码](https://github.com/laqieer/gba-dev-best-practice/commit/01f91a3e08a6f61ec0c0b8fbb60eab62121172fc)
 
 {% file src=".gitbook/assets/第8章示例.gba" %}
