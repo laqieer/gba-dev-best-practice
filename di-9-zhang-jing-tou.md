@@ -1,5 +1,5 @@
 ---
-description: 玩家视野
+description: 玩家视角和镜头跟随
 ---
 
 # 第9章 镜头
