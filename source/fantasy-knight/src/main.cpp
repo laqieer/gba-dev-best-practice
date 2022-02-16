@@ -16,6 +16,7 @@
 #include "bn_string_view.h"
 #include "bn_sprite_text_generator.h"
 #include "hanamin_sprite_font.h"
+#include "bn_camera_ptr.h"
 
 bn::sprite_ptr *sprite;
 bn::sprite_animate_action<10> *sprite_action;
@@ -24,14 +25,17 @@ bn::affine_bg_ptr *affine_bg;
 bn::affine_bg_rotate_by_action *affine_bg_action;
 bn::sprite_text_generator *text_generator;
 bn::vector<bn::sprite_ptr, 10> *text_sprites;
+bn::camera_ptr *camera;
 
 void init_sprite();
 void init_regular_bg();
 void init_affine_bg();
 void init_text();
+void init_camera();
 void reset_sprite();
 void reset_regular_bg();
 void reset_affine_bg();
+void reset_camera();
 void handle_user_input();
 void update_actions();
 
@@ -42,6 +46,7 @@ int main()
     init_regular_bg();
     init_affine_bg();
     init_text();
+    init_camera();
     bn::music_items::age_of_time.play(0.25);
     bn::sound_items::evil_monster_kevangc.play();
 
@@ -81,6 +86,14 @@ void init_text()
     text_generator->generate(0, -70, "GBA开发最佳实践", *text_sprites);
 }
 
+void init_camera()
+{
+    camera = new bn::camera_ptr(bn::camera_ptr::create(0, 0));
+    regular_bg->set_camera(*camera);
+    sprite->set_camera(*camera);
+    affine_bg->set_camera(*camera);
+}
+
 void reset_sprite()
 {
     sprite->set_position(0, 0);
@@ -100,6 +113,11 @@ void reset_affine_bg()
     affine_bg->set_rotation_angle(0);
 }
 
+void reset_camera()
+{
+    camera->set_position(0, 0);
+}
+
 void handle_user_input()
 {
     // Start键: 复位
@@ -108,25 +126,24 @@ void handle_user_input()
         reset_sprite();
         reset_regular_bg();
         reset_affine_bg();
+        reset_camera();
     }
 
     // 十字键向上
     if(bn::keypad::up_held())
     {
-        // 按住L键: 场景下移
-        if(bn::keypad::l_held())
+        // 按住L键: 镜头上移
+        if(bn::keypad::l_held() || sprite->y() > 0)
         {
-            if(regular_bg->y() < 48)
+            if(camera->y() > -48)
             {
-                regular_bg->set_y(regular_bg->y() + 1);
-                sprite->set_y(sprite->y() + 1);
-                affine_bg->set_y(sprite->y());
+                camera->set_y(camera->y() - 1);
             }
         }
         // 否则: 人物上移
-        else
+        if(!bn::keypad::l_held())
         {
-            if(sprite->y() > regular_bg->y())
+            if(sprite->y() > 0)
             {
                 sprite->set_y(sprite->y() - 1);
                 affine_bg->set_y(sprite->y());
@@ -137,20 +154,15 @@ void handle_user_input()
     // 十字键向下
     if(bn::keypad::down_held())
     {
-        // 按住L键: 场景上移
-        if(bn::keypad::l_held())
+        // 按住L键: 镜头下移
+        if(camera->y() < 48)
         {
-            if(regular_bg->y() > -48)
-            {
-                regular_bg->set_y(regular_bg->y() - 1);
-                sprite->set_y(sprite->y() - 1);
-                affine_bg->set_y(sprite->y());
-            }
+            camera->set_y(camera->y() + 1);
         }
         // 否则: 人物下移
-        else
+        if(!bn::keypad::l_held())
         {
-            if(sprite->y() - regular_bg->y() < 96)
+            if(sprite->y() < 96)
             {
                 sprite->set_y(sprite->y() + 1);
                 affine_bg->set_y(sprite->y());
@@ -158,22 +170,34 @@ void handle_user_input()
         }
     }
 
-    // 十字键向左: 左移
-    if(bn::keypad::left_held() && sprite->x() > -120)
+    // 十字键向左
+    if(bn::keypad::left_held())
     {
-        sprite->set_x(sprite->x() - 1);
-        affine_bg->set_x(sprite->x());
-        sprite->set_horizontal_flip(true);
-        affine_bg->set_horizontal_flip(true);
+        // 镜头左移
+        camera->set_x(camera->x() - 1);
+        // 人物左移
+        if(!bn::keypad::l_held())
+        {
+            sprite->set_x(sprite->x() - 1);
+            affine_bg->set_x(sprite->x());
+            sprite->set_horizontal_flip(true);
+            affine_bg->set_horizontal_flip(true);
+        }
     }
 
-    // 十字键向右: 右移
-    if(bn::keypad::right_held() && sprite->x() < 120)
+    // 十字键向右
+    if(bn::keypad::right_held())
     {
-        sprite->set_x(sprite->x() + 1);
-        affine_bg->set_x(sprite->x());
-        sprite->set_horizontal_flip(false);
-        affine_bg->set_horizontal_flip(false);
+        // 镜头右移
+        camera->set_x(camera->x() + 1);
+        // 人物右移
+        if(!bn::keypad::l_held())
+        {
+            sprite->set_x(sprite->x() + 1);
+            affine_bg->set_x(sprite->x());
+            sprite->set_horizontal_flip(false);
+            affine_bg->set_horizontal_flip(false);
+        }
     }
 
     // A键: 魔法阵放大
