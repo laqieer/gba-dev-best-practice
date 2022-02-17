@@ -11,3 +11,4 @@
 * [第7章 声音](di-7-zhang-sheng-yin.md)
 * [第8章 文本](di-8-zhang-wen-ben.md)
 * [第9章 镜头](di-9-zhang-jing-tou.md)
+* [第10章 存档](di-10-zhang-cun-dang.md)
