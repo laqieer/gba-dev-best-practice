@@ -17,6 +17,7 @@
 #include "bn_sprite_text_generator.h"
 #include "hanamin_sprite_font.h"
 #include "bn_camera_ptr.h"
+#include "bn_sram.h"
 
 bn::sprite_ptr *sprite;
 bn::sprite_animate_action<10> *sprite_action;
@@ -26,6 +27,12 @@ bn::affine_bg_rotate_by_action *affine_bg_action;
 bn::sprite_text_generator *text_generator;
 bn::vector<bn::sprite_ptr, 10> *text_sprites;
 bn::camera_ptr *camera;
+struct {
+    int position_x;
+    int position_y;
+    int camera_x;
+    int camera_y;
+} progress;
 
 void init_sprite();
 void init_regular_bg();
@@ -38,6 +45,8 @@ void reset_affine_bg();
 void reset_camera();
 void handle_user_input();
 void update_actions();
+void restore_progress();
+void save_progress();
 
 int main()
 {
@@ -47,6 +56,7 @@ int main()
     init_affine_bg();
     init_text();
     init_camera();
+    restore_progress();
     bn::music_items::age_of_time.play(0.25);
     bn::sound_items::evil_monster_kevangc.play();
 
@@ -55,6 +65,7 @@ int main()
         handle_user_input();
         update_actions();
         bn::core::update();
+        save_progress();
     }
 }
 
@@ -217,4 +228,21 @@ void update_actions()
 {
     sprite_action->update();
     affine_bg_action->update();
+}
+
+void restore_progress()
+{
+    bn::sram::read(progress);
+    sprite->set_position(progress.position_x, progress.position_y);
+    affine_bg->set_position(sprite->position());
+    camera->set_position(progress.camera_x, progress.camera_y);
+}
+
+void save_progress()
+{
+    progress.position_x = sprite->x().integer();
+    progress.position_y = sprite->y().integer();
+    progress.camera_x = camera->x().integer();
+    progress.camera_y = camera->y().integer();
+    bn::sram::write(progress);
 }
