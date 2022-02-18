@@ -1,3 +1,7 @@
+---
+description: 保存游戏进度
+---
+
 # 第10章 存档
 
 [API文档](https://gvaliente.github.io/butano/namespacebn\_1\_1sram.html)
