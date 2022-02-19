@@ -4,7 +4,7 @@ description: 保存游戏进度
 
 # 第10章 存档
 
-{% embed url="https://www.bilibili.com/video/BV13u411X7tV" %}
+{% embed url="https://www.bilibili.com/video/BV1Du411Q77J" %}
 
 [API文档](https://gvaliente.github.io/butano/namespacebn\_1\_1sram.html)
 
