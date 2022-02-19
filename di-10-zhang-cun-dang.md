@@ -4,6 +4,8 @@ description: 保存游戏进度
 
 # 第10章 存档
 
+{% embed url="https://www.bilibili.com/video/BV13u411X7tV" %}
+
 [API文档](https://gvaliente.github.io/butano/namespacebn\_1\_1sram.html)
 
 [本章源码](https://github.com/laqieer/gba-dev-best-practice/commit/d44fcfb39bbfdd8cfe090d325cef5e99d9e65c08)
