@@ -18,6 +18,7 @@
 #include "hanamin_sprite_font.h"
 #include "bn_camera_ptr.h"
 #include "bn_sram.h"
+#include "bn_blending.h"
 
 bn::sprite_ptr *sprite;
 bn::sprite_animate_action<10> *sprite_action;
@@ -88,6 +89,8 @@ void init_affine_bg()
     affine_bg->set_priority(2);
     affine_bg->set_wrapping_enabled(false);
     affine_bg_action = new bn::affine_bg_rotate_by_action(*affine_bg, 5);
+    affine_bg->set_blending_enabled(true);
+    bn::blending::set_transparency_alpha(0.5);
 }
 
 void init_text()
@@ -122,6 +125,7 @@ void reset_affine_bg()
     affine_bg->set_horizontal_flip(false);
     affine_bg->set_scale(1);
     affine_bg->set_rotation_angle(0);
+    bn::blending::set_transparency_alpha(0.5);
 }
 
 void reset_camera()
@@ -211,16 +215,18 @@ void handle_user_input()
         }
     }
 
-    // A键: 魔法阵放大
-    if(bn::keypad::a_held() && affine_bg->horizontal_scale() < 2)
+    // A键: 魔法阵发散
+    if(bn::keypad::a_held() && affine_bg->horizontal_scale() < 2 && bn::blending::transparency_alpha() > 0.05)
     {
         affine_bg->set_scale(affine_bg->horizontal_scale() + 0.1);
+        bn::blending::set_transparency_alpha(bn::blending::transparency_alpha() - 0.05);
     }
 
-    // B键: 魔法阵缩小
-    if(bn::keypad::b_held() && affine_bg->horizontal_scale() > 0.1)
+    // B键: 魔法阵聚集
+    if(bn::keypad::b_held() && affine_bg->horizontal_scale() > 0.1 && bn::blending::transparency_alpha() < 0.95)
     {
         affine_bg->set_scale(affine_bg->horizontal_scale() - 0.1);
+        bn::blending::set_transparency_alpha(bn::blending::transparency_alpha() + 0.05);
     }
 }
 
