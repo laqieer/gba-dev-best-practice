@@ -14,7 +14,8 @@
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "linux-gcc-arm",
-            "compilerPath": "C:\\devkitPro\\devkitARM\\bin\\arm-none-eabi-g++.exe"
+            "compilerPath": "C:\\devkitPro\\devkitARM\\bin\\arm-none-eabi-g++.exe",
+            "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],
     "version": 4
